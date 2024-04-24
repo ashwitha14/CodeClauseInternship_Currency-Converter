@@ -1,0 +1,46 @@
+from currency_converter import CurrencyConverter
+import tkinter as tk
+w=tk.Tk()
+w.title("Currency Converter")
+w.geometry("600x400")
+cur_var=tk.IntVar()
+mycur_var=tk.StringVar()
+tocur_var=tk.StringVar()
+selected_my_cur=tk.StringVar()
+selected_to_cur=tk.StringVar()
+def Converter(currency,my_value,to_value):
+    c=CurrencyConverter()
+    return c.convert(currency,my_value,to_value)
+def convert():
+    input_currency=cur_var.get()
+    d=Converter(input_currency,selected_my_cur.get(),selected_to_cur.get())
+    value = (round(d,2))
+    con_label=tk.Label(w,text="Converted currency :  {} {} ".format(value,selected_to_cur.get()))
+    con_label.grid(row=4,column=1)
+    cur_var.set("")
+cur_label=tk.Label(w,text="Enter the currency")
+cur_entry=tk.Entry(w,textvariable=cur_var)
+mycur_label=tk.Label(w,text="current type of currency")
+#mycur_entry=tk.Entry(w,textvariable=mycur_var)
+tocur_label=tk.Label(w,text="convert into")
+tocur_entry=tk.Entry(w,textvariable=tocur_var)
+con_btn=tk.Button(w,text='Convert',command=convert)
+button=tk.Button(w,text="EXIT",width=30,command=w.destroy)
+cur_label.grid(row=0,column=0)
+cur_entry.grid(row=0,column=1)
+mycur_label.grid(row=1,column=0)
+#mycur_entry.grid(row=1,column=1)
+tocur_label.grid(row=2,column=0)
+#tocur_entry.grid(row=2,column=1)
+con_btn.grid(row=3,column=1)
+button.grid(row=6,column=1)
+options=["USD","INR","EUR","JPY","NZD","CHF","AUD"]
+options.sort()
+drop1=tk.OptionMenu(w,selected_my_cur,*options)
+drop2=tk.OptionMenu(w,selected_to_cur,*options)
+drop1.grid(row=1,column=1)
+drop2.grid(row=2,column=1)
+w.mainloop()
+
+
+
